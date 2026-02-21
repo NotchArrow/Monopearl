@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "monopearl",
+  "version": "${version}",
+  "name": "Monopearl",
+  "description": "Allows one active pearl per player on a server.",
+  "authors": ["NotchArrow"],
+  "contact": {
+    "homepage": "https://modrinth.com/project/monopearl",
+    "sources": "https://github.com/NotchArrow/Monopearl/",
+    "discord": "https://discord.gg/ZCaGkZeb4C"
+  },
+  "license": "MIT",
+  "icon": "assets/monopearl/icon.png",
+  "entrypoints": {
+    "main": [
+      "com.notcharrow.monopearl.Monopearl"
+    ]
+  },
+  "mixins": [
+    "monopearl.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": ">=1.21 <=1.21.11"
+  }
+}
