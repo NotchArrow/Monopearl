@@ -12,6 +12,7 @@
   },
   "license": "MIT",
   "icon": "assets/monopearl/icon.png",
+  "environment": "server",
   "entrypoints": {
     "main": [
       "com.notcharrow.monopearl.Monopearl"
