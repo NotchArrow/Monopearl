@@ -1,5 +1,6 @@
 package com.notcharrow.monopearl.mixin;
 
+import com.notcharrow.monopearl.config.ConfigManager;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.EnderPearlItem;
@@ -26,12 +27,13 @@ public abstract class EnderPearlItemMixin {
 
 		if (server != null) {
 			for (ServerWorld serverWorld : server.getWorlds()) {
-				boolean hasPearl = !serverWorld.getEntitiesByType(
+				boolean canThrow = serverWorld.getEntitiesByType(
 						EntityType.ENDER_PEARL,
-						pearl -> user.getUuid().equals(Objects.requireNonNull(pearl.getOwner()).getUuid())
-				).isEmpty();
-				if (hasPearl) {
-					user.sendMessage(Text.literal("You already have an active pearl!").fillStyle(Style.EMPTY.withColor(Colors.CYAN)), true);
+						pearl -> user.getUuid().equals(Objects.requireNonNull(pearl.getOwner()).getUuid()) &&
+								pearl.age < ConfigManager.config.pearlStaleAge
+				).size() < ConfigManager.config.maxPearlCount;
+				if (!canThrow) {
+					user.sendMessage(Text.literal("You already have too many active pearls!").fillStyle(Style.EMPTY.withColor(Colors.CYAN)), true);
 					cir.setReturnValue(ActionResult.FAIL);
 					return;
 				}
